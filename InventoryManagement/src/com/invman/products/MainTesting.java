@@ -4,7 +4,7 @@ public class MainTesting {
 
 	public static void main(String[] args) {
 		Furniture furniture = new Furniture("Bed, Bath and Beyond", "Couch", "Living Room", 970.50);
-		//furniture.add();
+		furniture.add();
 		
 		//game.remove("Mordhau");
 		
