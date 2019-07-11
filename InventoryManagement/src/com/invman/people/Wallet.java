@@ -3,13 +3,11 @@ package com.invman.people;
 public class Wallet {
 	
 	private String username;
-	private Double balance;
 	
 	UserDatabase db = new UserDatabase();
 	
-	public Wallet(String username, Double balance) {
-		this.username = username;
-		this.balance = balance;
+	public Wallet() {
+		
 	}
 	
 	public void createWallet(String username) {

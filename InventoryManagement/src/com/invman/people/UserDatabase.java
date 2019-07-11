@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
@@ -18,36 +19,44 @@ public class UserDatabase {
 	MongoDatabase db = mongoClient.getDatabase("users");
 	
 	public void addUser(String collectionName, String fname, String lname, String username) {
+		boolean usernameTaken = userExists(username);
 		
-		// Add user check here and complete the method
-		
-		MongoCollection<Document> collection = db
-				.getCollection(collectionName);
-		
-		// Check if username already exists in the database
-		Bson bsonFilter = Filters.eq("Username", username);
-		FindIterable<Document> findIt = collection.find(bsonFilter);
-		
-		// if username exists return alreasy exists
-		String usernameCheck = findIt.first().toString();
-		//else
-		Document newUser = new Document("First Name", fname)
-				.append("Last Name", lname)
-				.append("Username", username);
+		if(usernameTaken == true) {
+			System.out.println("Username already exists!");
+		}
+		else if(usernameTaken == false) {
+			MongoCollection<Document> collection = db
+					.getCollection(collectionName);
+			
+			Document newUser = new Document("First Name", fname)
+					.append("Last Name", lname)
+					.append("Username", username);
 
-		collection.insertOne(newUser);
-
-		mongoClient.close();
-		
+			collection.insertOne(newUser);
+		}
 	}
 	
 	public String searchUserByUsername(String collectionName, String username) {
+		String result = "";
+		
 		MongoCollection<Document> collection = db.getCollection(collectionName);
 		
 		Bson bsonFilter = Filters.eq("Username", username);
 		FindIterable<Document> findIt = collection.find(bsonFilter);
 		
-		return findIt.first().toString();
+		try {
+			result = findIt.first().toString();
+		}catch(NullPointerException e) {
+			e.getMessage();
+		}
+		
+		if(result.isEmpty()) {
+			result = "User does not exist!";
+		}
+		else {
+			return result;
+		}
+		return result;
 	}
 	
 	public void removeUser(String collectionName, String username) {
@@ -84,43 +93,44 @@ public class UserDatabase {
 		MongoCollection<Document> collection = db.getCollection("User");
 		
 		boolean userCheck = userExists(username);
-		//if true
 		
-		// Complete the method
-		
-		
-		Document query = new Document();
-        query.append("username","User");
-        
-        Document setData = new Document();
-        setData.append("username", username).append("Wallet", 0);
-        
-        Document update = new Document();
-        update.append("$set", setData);
-        
-        //To update single Document  
-        collection.updateOne(query, update);
-		
+		if(userCheck == true) {
+			BasicDBObject newWallet = new BasicDBObject();
+			newWallet.append("$set", new BasicDBObject().append("Wallet", 0.0));
+			BasicDBObject user = new BasicDBObject().append("Username", username);
+
+			collection.updateOne(user, newWallet);
+		}
+		else {
+			System.out.println("User does not exist");
+		}
 	}
 	
 	public String updateWallet(String queryCheck, String username, Double amount) {
 		
 		boolean userCheck = userExists(username);
-		
 		String result = "";
 		
 		if(userCheck == true) {
-		
+			
+			MongoCollection<Document> collection = db.getCollection("User");
+			Bson bsonFilter = Filters.eq("Username", username);
+			FindIterable<Document> findIt = collection.find(bsonFilter);
+			
+			Double currentAmountInWallet = Double.parseDouble(findIt.first().get("Wallet").toString());
+			
 			if(queryCheck.equals("deposit")) {
-				
-				// Complete
-				
+				currentAmountInWallet = currentAmountInWallet + amount;
 			}
 			else if(queryCheck.equals("withdraw")) {
-				
-				// Complete
-				
+				currentAmountInWallet = currentAmountInWallet - amount;
 			}
+			
+			BasicDBObject newWallet = new BasicDBObject();
+			newWallet.append("$set", new BasicDBObject().append("Wallet", currentAmountInWallet));
+			BasicDBObject user = new BasicDBObject().append("Username", username);
+
+			collection.updateOne(user, newWallet);
 		}
 		else {
 			result = "No user exists";
@@ -152,15 +162,28 @@ public class UserDatabase {
 		
 	}
 	
-	public boolean userExists(String username) {
-		// Check to see if user exists
+	private boolean userExists(String username) {
+		boolean result = false;
+		String userCheck = "";
+		
 		MongoCollection<Document> collection = db.getCollection("User");
 				
 		Bson bsonFilter = Filters.eq("Username", username);
 		FindIterable<Document> findIt = collection.find(bsonFilter);
-				
-		String userCheck = findIt.first().toString();
 		
-		return true;
+		try {	
+			userCheck = findIt.first().get("Username").toString();
+		}catch(NullPointerException e) {
+			e.getMessage();
+		}
+		
+		if(userCheck.isEmpty()) {
+			result = false;
+		}
+		else if(userCheck.length() > 0) {
+			result = true;
+		}
+		
+		return result;
 	}
 }

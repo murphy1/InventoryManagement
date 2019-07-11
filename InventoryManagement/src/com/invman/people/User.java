@@ -3,33 +3,31 @@ package com.invman.people;
 import java.util.ArrayList;
 
 public class User {
-	
-	private String fname;
-	private String lname;
-	private String username;
-	
+
 	UserDatabase db = new UserDatabase();
 	
-	public User(String fname, String lname, String username) {
-		this.fname = fname;
-		this.lname = lname;
-		this.username = username;
+	public User() {
+		
 	}
 
-	public void add() {
-		db.addUser("User", this.fname, this.lname, this.username);
+	public void add(String fname, String lname, String username) {
+		db.addUser("User", fname, lname, username);
 	}
 
 	public void remove(String username) {
 		db.removeUser("User", username);
 	}
 
-	public String searchUser(String username) {
-		return db.searchUserByUsername("User", username);
+	public void searchUser(String username) {
+		String user = db.searchUserByUsername("User", username);
+		System.out.println(user);
 	}
 
-	public ArrayList<String> listUsers() {
-		return db.listUsers("User");
+	public void listUsers() {
+		ArrayList<String> users = db.listUsers("User");
+		for(String user : users) {
+			System.out.println(user);
+		}
 	}
 
 }

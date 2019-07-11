@@ -1,17 +1,15 @@
 package com.invman.products;
 
+import com.invman.people.User;
+import com.invman.people.Wallet;
+import com.invman.ui.UserInterface;
+
 public class MainTesting {
 
 	public static void main(String[] args) {
-		Furniture furniture = new Furniture("Bed, Bath and Beyond", "Couch", "Living Room", 970.50);
-		furniture.add();
+		UserInterface ui = new UserInterface();
 		
-		//game.remove("Mordhau");
-		
-		System.out.println(furniture.searchProductbyName("Table"));
-		
-		//System.out.println(furniture.listProducts());
-
+		ui.start();
 	}
 
 }
