@@ -68,7 +68,7 @@ public class UserDatabase {
 		FindIterable<Document> findIt = collection.find(bsonFilter);
 		
 		try {
-			result = findIt.first().get("username").toString();
+			result = findIt.first().get("Username").toString();
 		}catch(NullPointerException e) {
 			e.getMessage();
 		}

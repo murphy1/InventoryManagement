@@ -50,6 +50,7 @@ public class UserInterface {
 			}
 			else {
 				currentUser = result;
+				checkForInput = false;
 			}
 		}
 		checkForInput = true;
@@ -126,12 +127,13 @@ public class UserInterface {
 				
 				if(option == 1) {
 					
-					if(isProduct == "Grocery") {
+					if(isProduct.equals("Grocery")) {
 						System.out.println("Grocery name:");
 						String groceryName = scanner.nextLine();
-						System.out.println("Grocery name:");
+						System.out.println("Grocery price:");
 						Double groceryPrice = scanner.nextDouble();
-						System.out.println("Grocery name:");
+						System.out.println("Grocery expiration (mm/dd/yyyy):");
+						scanner.nextLine();
 						String groceryExpiration = scanner.nextLine();
 						
 						Product groceryAdd = new Grocery(groceryName, groceryPrice, groceryExpiration);
@@ -139,12 +141,13 @@ public class UserInterface {
 						
 						wallet.withdraw(groceryPrice);
 					}
-					else if(isProduct == "Electronics") {
+					else if(isProduct.equals("Electronics")) {
 						System.out.println("Brand Name:");
 						String electronicBrandName = scanner.nextLine();
 						System.out.println("Price:");
 						Double electronicPrice = scanner.nextDouble();
 						System.out.println("Name:");
+						scanner.nextLine();
 						String electronicName = scanner.nextLine();
 						
 						Product electronicAdd = new Electronics(electronicBrandName, electronicName, electronicPrice);
@@ -152,7 +155,7 @@ public class UserInterface {
 						
 						wallet.withdraw(electronicPrice);
 					}
-					else if(isProduct == "Furniture") {
+					else if(isProduct.equals("Furniture")) {
 						System.out.println("Store Name:");
 						String furnitureStoreName = scanner.nextLine();
 						System.out.println("Price:");
@@ -160,6 +163,7 @@ public class UserInterface {
 						System.out.println("Name:");
 						String furnitureName = scanner.nextLine();
 						System.out.println("Room:");
+						scanner.nextLine();
 						String roomName = scanner.nextLine();
 						
 						Product furnitureAdd = new Furniture(furnitureStoreName, furnitureName, roomName, furniturePrice);
@@ -167,12 +171,13 @@ public class UserInterface {
 						
 						wallet.withdraw(furniturePrice);
 					}
-					else if(isProduct == "Games") {
+					else if(isProduct.equals("Games")) {
 						System.out.println("Platform:");
 						String platform = scanner.nextLine();
 						System.out.println("Price:");
 						Double gamePrice = scanner.nextDouble();
 						System.out.println("Name:");
+						scanner.nextLine();
 						String gameName = scanner.nextLine();
 						
 						Product gameAdd = new Games(platform, gameName, gamePrice);
@@ -183,28 +188,28 @@ public class UserInterface {
 					
 				}
 				else if(option == 2) {					
-					if(isProduct == "Grocery") {
+					if(isProduct.equals("Grocery")){
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
 						Product grocerySearch = new Grocery();
 						grocerySearch.searchProductbyName(productSearch);
 					}
-					else if(isProduct == "Electronics") {
+					else if(isProduct.equals("Electronics")) {
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
 						Product electronicSearch = new Electronics();
 						electronicSearch.searchProductbyName(productSearch);
 					}
-					else if(isProduct == "Furniture") {
+					else if(isProduct.equals("Furniture")) {
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
 						Product furnitureSearch = new Furniture();
 						furnitureSearch.searchProductbyName(productSearch);
 					}
-					else if(isProduct == "Games") {
+					else if(isProduct.equals("Games")) {
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
@@ -213,21 +218,21 @@ public class UserInterface {
 					}
 				}
 				else if(option == 3) {
-					if(isProduct == "Grocery") {
+					if(isProduct.equals("Grocery")) {
 						Product groceryList = new Grocery();
-						groceryList.listProducts();
+						System.out.println(groceryList.listProducts());
 					}
-					else if(isProduct == "Electronics") {
+					else if(isProduct.equals("Electronics")) {
 						Product electronicList = new Electronics();
-						electronicList.listProducts();
+						System.out.println(electronicList.listProducts());
 					}
-					else if(isProduct == "Furniture") {
+					else if(isProduct.equals("Furniture")) {
 						Product furnitureList = new Furniture();
-						furnitureList.listProducts();
+						System.out.println(furnitureList.listProducts());
 					}
-					else if(isProduct == "Games") {
+					else if(isProduct.equals("Games")) {
 						Product gameList = new Games();
-						gameList.listProducts();
+						System.out.println(gameList.listProducts());
 					}
 				}
 				else if(option == 4) {
@@ -235,25 +240,25 @@ public class UserInterface {
 					String productToRemove = scanner.nextLine();
 					user.remove(productToRemove);
 					
-					if(isProduct == "Grocery") {
+					if(isProduct.equals("Grocery")) {
 						System.out.println("Choose a product:");
 						String groceryToRemove = scanner.nextLine();
 						Product groceryRemove = new Grocery();
 						groceryRemove.remove(groceryToRemove);
 					}
-					else if(isProduct == "Electronics") {
+					else if(isProduct.equals("Electronics")) {
 						System.out.println("Choose a product:");
 						String electronicToRemove = scanner.nextLine();
 						Product electronicRemove = new Grocery();
 						electronicRemove.remove(electronicToRemove);
 					}
-					else if(isProduct == "Furniture") {
+					else if(isProduct.equals("Furniture")) {
 						System.out.println("Choose a product:");
 						String furnitureToRemove = scanner.nextLine();
 						Product furnitureRemove = new Grocery();
 						furnitureRemove.remove(furnitureToRemove);
 					}
-					else if(isProduct == "Games") {
+					else if(isProduct.equals("Games")) {
 						System.out.println("Choose a product:");
 						String gameToRemove = scanner.nextLine();
 						Product gameRemove = new Grocery();
