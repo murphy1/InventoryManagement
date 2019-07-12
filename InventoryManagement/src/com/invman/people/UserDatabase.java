@@ -59,6 +59,29 @@ public class UserDatabase {
 		return result;
 	}
 	
+	public String searchUsernameForLogin(String collectionName, String username) {
+		String result = "";
+		
+		MongoCollection<Document> collection = db.getCollection(collectionName);
+		
+		Bson bsonFilter = Filters.eq("Username", username);
+		FindIterable<Document> findIt = collection.find(bsonFilter);
+		
+		try {
+			result = findIt.first().get("username").toString();
+		}catch(NullPointerException e) {
+			e.getMessage();
+		}
+		
+		if(result.isEmpty()) {
+			result = "User does not exist!";
+		}
+		else {
+			return result;
+		}
+		return result;
+	}
+	
 	public void removeUser(String collectionName, String username) {
 		MongoCollection<Document> collection = db.getCollection(collectionName);
 		

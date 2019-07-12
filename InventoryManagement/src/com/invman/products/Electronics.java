@@ -9,6 +9,10 @@ public class Electronics implements Product{
 	
 	HashMap<String, String> details = new HashMap<String, String>();
 	
+	public Electronics() {
+		
+	}
+	
 	public Electronics(String brand, String name, Double price) {
 		details.put("Brand", brand);
 		details.put("Name", name);

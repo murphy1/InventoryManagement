@@ -9,6 +9,10 @@ public class Games implements Product{
 	
 	HashMap<String, String> details = new HashMap<String, String>();
 	
+	public Games() {
+		
+	}
+	
 	public Games(String platform, String name, Double price) {
 		details.put("Platform", platform);
 		details.put("Name", name);

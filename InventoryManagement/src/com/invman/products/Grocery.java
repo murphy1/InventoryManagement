@@ -9,6 +9,10 @@ public class Grocery implements Product{
 	
 	HashMap<String, String> details = new HashMap<String, String>();
 	
+	public Grocery() {
+		
+	}
+	
 	public Grocery(String name, Double price, String expiration) {
 		details.put("Grocery", name);
 		details.put("Price", Double.toString(price));

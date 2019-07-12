@@ -9,6 +9,10 @@ public class Furniture implements Product{
 	
 	HashMap<String, String> details = new HashMap<String, String>();
 	
+	public Furniture() {
+		
+	}
+	
 	public Furniture(String store, String name, String room, Double price) {
 		details.put("Store", store);
 		details.put("Name", name);
