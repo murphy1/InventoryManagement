@@ -1,7 +1,5 @@
 package com.invman.products;
 
-import com.invman.people.User;
-import com.invman.people.Wallet;
 import com.invman.ui.UserInterface;
 
 public class MainTesting {

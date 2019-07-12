@@ -53,7 +53,15 @@ public class ProductDatabase{
 		Bson bsonFilter = Filters.eq(productType, query);
 		FindIterable<Document> findIt = collection.find(bsonFilter);
 		
-		return findIt.first().toString();
+		String result = "Product does not exist!";
+		
+		try {
+			result = findIt.first().toString();
+		}catch(NullPointerException e) {
+			e.getMessage();
+		}
+		
+		return result;
 	}
 	
 	public void removeProduct(String collectionName, String productType, String name) {

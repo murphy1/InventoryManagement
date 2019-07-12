@@ -65,7 +65,8 @@ public class UserInterface {
 			System.out.println("[3] List all users");
 			System.out.println("[4] Delete a user");
 			System.out.println("[5] Create a wallet (current user)");
-			System.out.println("[6] Exit");
+			System.out.println("[6] Update wallet (current user)");
+			System.out.println("[7] Exit");
 			
 			int option = scanner.nextInt();
 			scanner.nextLine();
@@ -99,6 +100,20 @@ public class UserInterface {
 				wallet.createWallet(currentUser);
 			}
 			else if(option == 6) {
+				System.out.println("withdrawal or deposit:");
+				String result = scanner.nextLine();
+				
+				System.out.println("Amount:");
+				Double amount = scanner.nextDouble();
+				
+				if(result.equals("withdrawal")) {
+					wallet.withdraw(currentUser, amount);
+				}
+				else if(result.equals("deposit")) {
+					wallet.deposit(currentUser, amount);
+				}
+			}
+			else if(option == 7) {
 				checkForInput = false;
 			}
 		}
@@ -139,7 +154,7 @@ public class UserInterface {
 						Product groceryAdd = new Grocery(groceryName, groceryPrice, groceryExpiration);
 						groceryAdd.add();
 						
-						wallet.withdraw(groceryPrice);
+						wallet.withdraw(currentUser, groceryPrice);
 					}
 					else if(isProduct.equals("Electronics")) {
 						System.out.println("Brand Name:");
@@ -153,7 +168,7 @@ public class UserInterface {
 						Product electronicAdd = new Electronics(electronicBrandName, electronicName, electronicPrice);
 						electronicAdd.add();
 						
-						wallet.withdraw(electronicPrice);
+						wallet.withdraw(currentUser, electronicPrice);
 					}
 					else if(isProduct.equals("Furniture")) {
 						System.out.println("Store Name:");
@@ -169,7 +184,7 @@ public class UserInterface {
 						Product furnitureAdd = new Furniture(furnitureStoreName, furnitureName, roomName, furniturePrice);
 						furnitureAdd.add();
 						
-						wallet.withdraw(furniturePrice);
+						wallet.withdraw(currentUser, furniturePrice);
 					}
 					else if(isProduct.equals("Games")) {
 						System.out.println("Platform:");
@@ -183,7 +198,7 @@ public class UserInterface {
 						Product gameAdd = new Games(platform, gameName, gamePrice);
 						gameAdd.add();
 						
-						wallet.withdraw(gamePrice);
+						wallet.withdraw(currentUser, gamePrice);
 					}
 					
 				}
@@ -193,28 +208,28 @@ public class UserInterface {
 						String productSearch = scanner.nextLine();
 						
 						Product grocerySearch = new Grocery();
-						grocerySearch.searchProductbyName(productSearch);
+						System.out.println(grocerySearch.searchProductbyName(productSearch));
 					}
 					else if(isProduct.equals("Electronics")) {
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
 						Product electronicSearch = new Electronics();
-						electronicSearch.searchProductbyName(productSearch);
+						System.out.println(electronicSearch.searchProductbyName(productSearch));
 					}
 					else if(isProduct.equals("Furniture")) {
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
 						Product furnitureSearch = new Furniture();
-						furnitureSearch.searchProductbyName(productSearch);
+						System.out.println(furnitureSearch.searchProductbyName(productSearch));
 					}
 					else if(isProduct.equals("Games")) {
 						System.out.println("Choose a product:");
 						String productSearch = scanner.nextLine();
 						
 						Product gameSearch = new Games();
-						gameSearch.searchProductbyName(productSearch);
+						System.out.println(gameSearch.searchProductbyName(productSearch));
 					}
 				}
 				else if(option == 3) {
@@ -236,10 +251,6 @@ public class UserInterface {
 					}
 				}
 				else if(option == 4) {
-					System.out.println("Choose a product:");
-					String productToRemove = scanner.nextLine();
-					user.remove(productToRemove);
-					
 					if(isProduct.equals("Grocery")) {
 						System.out.println("Choose a product:");
 						String groceryToRemove = scanner.nextLine();
@@ -249,19 +260,19 @@ public class UserInterface {
 					else if(isProduct.equals("Electronics")) {
 						System.out.println("Choose a product:");
 						String electronicToRemove = scanner.nextLine();
-						Product electronicRemove = new Grocery();
+						Product electronicRemove = new Electronics();
 						electronicRemove.remove(electronicToRemove);
 					}
 					else if(isProduct.equals("Furniture")) {
 						System.out.println("Choose a product:");
 						String furnitureToRemove = scanner.nextLine();
-						Product furnitureRemove = new Grocery();
+						Product furnitureRemove = new Furniture();
 						furnitureRemove.remove(furnitureToRemove);
 					}
 					else if(isProduct.equals("Games")) {
 						System.out.println("Choose a product:");
 						String gameToRemove = scanner.nextLine();
-						Product gameRemove = new Grocery();
+						Product gameRemove = new Games();
 						gameRemove.remove(gameToRemove);
 					}
 				}

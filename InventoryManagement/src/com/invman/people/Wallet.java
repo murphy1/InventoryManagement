@@ -2,8 +2,6 @@ package com.invman.people;
 
 public class Wallet {
 	
-	private String username;
-	
 	UserDatabase db = new UserDatabase();
 	
 	public Wallet() {
@@ -14,11 +12,11 @@ public class Wallet {
 		db.createWallet(username);
 	}
 	
-	public void deposit(Double amount) {
+	public void deposit(String username, Double amount) {
 		db.updateWallet("deposit", username, amount);
 	}
 	
-	public void withdraw(Double amount) {
+	public void withdraw(String username, Double amount) {
 		db.updateWallet("withdraw", username, amount);
 	}
 	
